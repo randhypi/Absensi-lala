@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Absensi</string>
+    <string name="logo">logo</string>
+    <string name="nis">NIS</string>
+    <string name="kataSandi">Kata Sandi</string>
+    <string name="masuk">Masuk</string>
+    <string name="masuk_sebagai_guru">Masuk sebagai guru ?</string>
+    <string name="masuk_sebagai_murid">masuk sebagai murid ?</string>
+</resources>
