@@ -5,12 +5,12 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Address
 import android.location.Geocoder
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Looper
 import android.util.Log
 import android.view.View
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.android.gms.location.LocationCallback
@@ -20,28 +20,28 @@ import com.google.android.gms.location.LocationServices
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.lala.absensi.databinding.ActivityHomeMuridBinding
+import com.lala.absensi.databinding.ActivityPulangBinding
 import com.lala.absensi.utils.Date
-import kotlinx.coroutines.*
+import kotlinx.coroutines.DelicateCoroutinesApi
 import java.util.*
 import kotlin.concurrent.schedule
 
-class HomeMuridActivity : AppCompatActivity() {
-
+class PulangActivity : AppCompatActivity() {
     private val db = Firebase.firestore
     private val auth = FirebaseAuth.getInstance()
 
-    private lateinit var binding: ActivityHomeMuridBinding
+    private lateinit var binding: ActivityPulangBinding
     private val REQUET_CODE_LOCATION_PERMISSION: Int = 1
 
 
     @DelicateCoroutinesApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityHomeMuridBinding.inflate(layoutInflater)
+        binding = ActivityPulangBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         supportActionBar?.hide()
+
 
 
         if (ContextCompat.checkSelfPermission(applicationContext,
@@ -92,7 +92,7 @@ class HomeMuridActivity : AppCompatActivity() {
 
         val locationCallback = object : LocationCallback() {
             override fun onLocationResult(locationResult: LocationResult) {
-                LocationServices.getFusedLocationProviderClient(this@HomeMuridActivity)
+                LocationServices.getFusedLocationProviderClient(this@PulangActivity)
                     .removeLocationUpdates(this)
                 if (locationResult.locations.size > 0) {
                     val lastLocation: Int = locationResult.locations.size - 1
@@ -109,7 +109,7 @@ class HomeMuridActivity : AppCompatActivity() {
                         binding.tvLokasiResult.text = completeAddress
 
 
-                        addAttandance()
+                        addGoingBack()
                         Log.d("LATITUDE", latitude.toString())
                         Log.d("LONGITUDE", longitude.toString())
                         Log.d("ALAMAT", completeAddress.toString())
@@ -141,8 +141,8 @@ class HomeMuridActivity : AppCompatActivity() {
         return date.getDate()
     }
 
-    private fun addAttandance() {
-        db.collection("masuk").document()
+    private fun addGoingBack() {
+        db.collection("pulang").document()
             .set(mapOf(
                 "id" to auth.uid.toString(),
                 "location" to binding.tvLokasiResult.text,
@@ -164,13 +164,18 @@ class HomeMuridActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        Toast.makeText(this, "Kamu tidak bisa menekan kembali", Toast.LENGTH_SHORT).show()
+        super.onBackPressed()
+        Toast.makeText(this,"Kamu tidak bisa menekan kembali", Toast.LENGTH_SHORT).show()
     }
 
+    fun keluar(view: View) {
+        auth.signOut()
+        Timer().schedule(1000L){
+            finishAndRemoveTask()
+            System.exit(0)
+        }
 
-    fun pulang(view: View) {
-        val intent = Intent(this, PulangActivity::class.java)
-        finishAffinity()
-        startActivity(intent)
+//        val intent = Intent(this,LoginMuridActivity::class.java)
+//        startActivity(intent)
     }
 }

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.HomeMuridActivity">
+    tools:context=".ui.PulangActivity">
 
     <TextView
         android:id="@+id/name"
@@ -36,7 +36,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
-        android:text="@string/catatan_kehadira"
+        android:text="@string/ctt_kepulangan"
         android:textColor="#000000"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="@+id/view"
@@ -159,12 +159,23 @@
         android:layout_width="150dp"
         android:layout_height="50dp"
         android:layout_marginTop="50dp"
-        android:text="PULANG"
+        android:text="@string/keluar"
+        android:onClick="keluar"
         app:backgroundTint="#FF0000"
         app:cornerRadius="10dp"
-        android:onClick="pulang"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view" />
+
+    <TextView
+        android:id="@+id/tv_terimakasi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Terima kasih"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_logout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

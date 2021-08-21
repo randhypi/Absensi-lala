@@ -64,13 +64,14 @@ class LoginGuruActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
+        finishAndRemoveTask()
         System.exit(0)
-        super.onBackPressed()
     }
 
 
     fun masukKeMurid(view: View) {
         val intent = Intent(this,LoginMuridActivity::class.java)
+        finishAffinity()
         startActivity(intent)
     }
 }

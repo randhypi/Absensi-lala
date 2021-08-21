@@ -12,4 +12,8 @@
     <string name="alamat">Alamat</string>
     <string name="nama">Nama</string>
     <string name="waktu">Waktu</string>
+    <string name="lokasi">Lokasi</string>
+    <string name="lala">Lala</string>
+    <string name="ctt_kepulangan">catatan kepulangan kamu :</string>
+    <string name="keluar">Keluar</string>
 </resources>

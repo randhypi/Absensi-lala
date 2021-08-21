@@ -85,7 +85,7 @@ class LoginMuridActivity : AppCompatActivity() {
                 Log.d("Check nisa", "$dbNis")
                 auth.signInWithEmailAndPassword(dbEmail, password)
                     .addOnSuccessListener {
-                        val intent = Intent(this@LoginMuridActivity, HomeGuruActivity::class.java)
+                        val intent = Intent(this@LoginMuridActivity, HomeMuridActivity::class.java)
                         startActivity(intent)
                     }
                     .addOnFailureListener {
@@ -94,13 +94,11 @@ class LoginMuridActivity : AppCompatActivity() {
                             Toast.LENGTH_SHORT).show()
                     }
             }
-
-
     }
 
     override fun onBackPressed() {
+        finishAndRemoveTask()
         System.exit(0)
-        super.onBackPressed()
     }
 
     fun masukKeGuru(view: View) {
