@@ -6,4 +6,10 @@
     <string name="masuk">Masuk</string>
     <string name="masuk_sebagai_guru">Masuk sebagai guru ?</string>
     <string name="masuk_sebagai_murid">masuk sebagai murid ?</string>
+    <string name="email">email</string>
+    <string name="hi">Hi,</string>
+    <string name="catatan_kehadira">Catatan kehadiran kamu :</string>
+    <string name="alamat">Alamat</string>
+    <string name="nama">Nama</string>
+    <string name="waktu">Waktu</string>
 </resources>
