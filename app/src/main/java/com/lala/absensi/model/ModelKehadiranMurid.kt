@@ -5,4 +5,5 @@ data class ModelKehadiranMurid(
     var lokasi: String = "",
     var hariTanggal: String = "",
     var waktuMasuk: String = "",
+    val dataMurid: ModelMurid = ModelMurid()
 )

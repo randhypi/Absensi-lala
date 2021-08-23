@@ -21,7 +21,9 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.lala.absensi.databinding.ActivityPulangBinding
+import com.lala.absensi.model.ModelKehadiranMurid
 import com.lala.absensi.model.ModelKepulanganMurid
+import com.lala.absensi.model.ModelMurid
 import com.lala.absensi.utils.Date
 import kotlinx.coroutines.DelicateCoroutinesApi
 import java.util.*
@@ -53,10 +55,8 @@ class PulangActivity : AppCompatActivity() {
                 REQUET_CODE_LOCATION_PERMISSION
             )
             getCurrentLocation()
-            getDataMurid()
         } else {
             getCurrentLocation()
-            getDataMurid()
         }
     }
 
@@ -148,27 +148,31 @@ class PulangActivity : AppCompatActivity() {
 
     @SuppressLint("SetTextI18n")
     private fun addGoingBack() {
-        db.collection("pulang").document()
-            .set(ModelKepulanganMurid(
-                idMurid = auth.uid.toString(),
-                lokasi =binding.tvLokasiResult.text.toString(),
-                hariTanggal = getDate(),
-                waktuPulang = getTime()
-            )).addOnSuccessListener {
-                binding.tvWaktuResult.text = getDate() +" "+getTime()
-            }.addOnFailureListener {
-                Log.d("LOCATION", it.toString())
-            }
-    }
-
-    private fun getDataMurid() {
         db.collection("murid").document(auth.uid.toString())
             .addSnapshotListener { value, error ->
                 binding.name.text = value?.get("nama").toString()
                 binding.tvNamaResult.text = value?.get("nama").toString()
                 binding.tvNis.text = value?.get("nis").toString()
+                value?.toObject(ModelMurid::class.java)?.let {
+                    db.collection("pulang").document()
+                        .set(ModelKehadiranMurid(
+                            idMurid = auth.uid.toString(),
+                            lokasi = binding.tvLokasiResult.text.toString(),
+                            hariTanggal = getDate(),
+                            waktuMasuk = getTime(),
+                            dataMurid = it
+                        )).addOnSuccessListener {
+                            binding.tvWaktuResult.text = getDate() + " " + getTime()
+                        }.addOnFailureListener {
+                            Log.d("LOCATION", it.toString())
+                        }
+                }
+
+
             }
     }
+
+
 
     override fun onBackPressed() {
         super.onBackPressed()

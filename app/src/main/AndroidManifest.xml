@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Absensi">
         <activity
-            android:name=".ui.guru.HomeGuru2Activity"
+            android:name=".ui.guru.HomeGuruActivity"
             android:exported="true"
             android:label="@string/title_activity_home_guru2"
             android:theme="@style/Theme.Absensi.NoActionBar" />
@@ -19,9 +19,6 @@
             android:exported="true" />
         <activity
             android:name=".ui.HomeMuridActivity"
-            android:exported="true" />
-        <activity
-            android:name=".ui.HomeGuruActivity"
             android:exported="true" />
         <activity
             android:name=".ui.LoginGuruActivity"

@@ -8,8 +8,8 @@ import android.text.TextWatcher
 import android.view.View
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
-import com.lala.absensi.R
 import com.lala.absensi.databinding.ActivityLoginGuruBinding
+import com.lala.absensi.ui.guru.HomeGuruActivity
 
 class LoginGuruActivity : AppCompatActivity() {
 
