@@ -10,6 +10,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Absensi">
         <activity
+            android:name=".ui.guru.HomeGuru2Activity"
+            android:exported="true"
+            android:label="@string/title_activity_home_guru2"
+            android:theme="@style/Theme.Absensi.NoActionBar" />
+        <activity
             android:name=".ui.PulangActivity"
             android:exported="true" />
         <activity
@@ -37,8 +42,8 @@
             android:name=".MainActivity"
             android:exported="true" />
     </application>
-    <uses-permission android:name="android.permission.INTERNET" />
-
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

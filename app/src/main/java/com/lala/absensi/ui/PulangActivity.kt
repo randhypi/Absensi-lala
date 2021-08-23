@@ -1,7 +1,7 @@
 package com.lala.absensi.ui
 
 import android.Manifest
-import android.content.Intent
+import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.location.Address
 import android.location.Geocoder
@@ -21,6 +21,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.lala.absensi.databinding.ActivityPulangBinding
+import com.lala.absensi.model.ModelKepulanganMurid
 import com.lala.absensi.utils.Date
 import kotlinx.coroutines.DelicateCoroutinesApi
 import java.util.*
@@ -140,15 +141,21 @@ class PulangActivity : AppCompatActivity() {
         Log.d("DATE", date.getDate())
         return date.getDate()
     }
+    private fun getTime(): String{
+        val time = Date()
+        return time.getTime()
+    }
 
+    @SuppressLint("SetTextI18n")
     private fun addGoingBack() {
         db.collection("pulang").document()
-            .set(mapOf(
-                "id" to auth.uid.toString(),
-                "location" to binding.tvLokasiResult.text,
-                "date" to getDate()
+            .set(ModelKepulanganMurid(
+                idMurid = auth.uid.toString(),
+                lokasi =binding.tvLokasiResult.text.toString(),
+                hariTanggal = getDate(),
+                waktuPulang = getTime()
             )).addOnSuccessListener {
-                binding.tvWaktuResult.text = getDate()
+                binding.tvWaktuResult.text = getDate() +" "+getTime()
             }.addOnFailureListener {
                 Log.d("LOCATION", it.toString())
             }

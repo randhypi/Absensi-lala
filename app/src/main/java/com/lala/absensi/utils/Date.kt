@@ -1,7 +1,9 @@
 package com.lala.absensi.utils
 
+import android.os.Build
+import androidx.annotation.RequiresApi
+import java.text.SimpleDateFormat
 import java.util.*
-import java.util.Date
 
 class Date {
     fun getDate(): String {
@@ -11,8 +13,6 @@ class Date {
         val date = now.get(Calendar.DAY_OF_MONTH)
         val month = now.get(Calendar.MONTH)
         val year = now.get(Calendar.YEAR)
-        val hour = now.get(Calendar.HOUR_OF_DAY)
-        val minute = now.get(Calendar.MINUTE)
 
         val dayName = when (day) {
             2 -> "Senin"
@@ -42,6 +42,23 @@ class Date {
             else -> "No Month"
         }
 
-        return "$dayName, $date/$monthName/$year, $hour:$minute "
+        return "$dayName, $date/$monthName/$year"
     }
+
+    fun getTime(): String{
+        val calendar = Calendar.getInstance().time
+        val waktu = SimpleDateFormat("HH:mm:ss",Locale.getDefault()).format(calendar)
+        return  waktu
+    }
+
+
+
+}
+
+@RequiresApi(Build.VERSION_CODES.O)
+fun main(){
+    val calendar = Calendar.getInstance().time
+    val waktu = SimpleDateFormat("HH:mm:ss",Locale.getDefault()).format(calendar)
+
+    print(waktu)
 }

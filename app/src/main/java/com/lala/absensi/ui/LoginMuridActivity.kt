@@ -102,7 +102,7 @@ class LoginMuridActivity : AppCompatActivity() {
     }
 
     fun masukKeGuru(view: View) {
-        val intent = Intent(this,LoginMuridActivity::class.java)
+        val intent = Intent(this,LoginGuruActivity::class.java)
         startActivity(intent)
     }
 

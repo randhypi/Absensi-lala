@@ -1,6 +1,7 @@
 package com.lala.absensi.ui
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Address
@@ -21,10 +22,10 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.lala.absensi.databinding.ActivityHomeMuridBinding
+import com.lala.absensi.model.ModelKehadiranMurid
 import com.lala.absensi.utils.Date
 import kotlinx.coroutines.*
 import java.util.*
-import kotlin.concurrent.schedule
 
 class HomeMuridActivity : AppCompatActivity() {
 
@@ -141,14 +142,21 @@ class HomeMuridActivity : AppCompatActivity() {
         return date.getDate()
     }
 
+    private fun getTime(): String{
+        val time = Date()
+        return time.getTime()
+    }
+
+    @SuppressLint("SetTextI18n")
     private fun addAttandance() {
         db.collection("masuk").document()
-            .set(mapOf(
-                "id" to auth.uid.toString(),
-                "location" to binding.tvLokasiResult.text,
-                "date" to getDate()
+            .set(ModelKehadiranMurid(
+                idMurid = auth.uid.toString(),
+                lokasi =binding.tvLokasiResult.text.toString(),
+                hariTanggal = getDate(),
+                waktuMasuk = getTime()
             )).addOnSuccessListener {
-                binding.tvWaktuResult.text = getDate()
+                binding.tvWaktuResult.text = getDate() +" "+getTime()
             }.addOnFailureListener {
                 Log.d("LOCATION", it.toString())
             }
