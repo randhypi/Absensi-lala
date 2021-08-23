@@ -45,7 +45,6 @@ class HomeMuridActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
 
-
         if (ContextCompat.checkSelfPermission(applicationContext,
                 android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
         ) {
@@ -71,6 +70,7 @@ class HomeMuridActivity : AppCompatActivity() {
         if (requestCode == REQUET_CODE_LOCATION_PERMISSION && grantResults.size > 0) {
             if (grantResults.get(0) == PackageManager.PERMISSION_GRANTED) {
                 getCurrentLocation()
+                Log.d("Cek permission",grantResults.size.toString() +" " + "if")
             } else {
                 Toast.makeText(this, "Permission denied!", Toast.LENGTH_SHORT).show()
             }
@@ -93,8 +93,7 @@ class HomeMuridActivity : AppCompatActivity() {
 
         val locationCallback = object : LocationCallback() {
             override fun onLocationResult(locationResult: LocationResult) {
-                LocationServices.getFusedLocationProviderClient(this@HomeMuridActivity)
-                    .removeLocationUpdates(this)
+
                 if (locationResult.locations.size > 0) {
                     val lastLocation: Int = locationResult.locations.size - 1
 
@@ -117,6 +116,8 @@ class HomeMuridActivity : AppCompatActivity() {
                     } catch (e: Exception) {
                         Log.d("Exception", e.toString())
                     }
+                    LocationServices.getFusedLocationProviderClient(this@HomeMuridActivity)
+                        .removeLocationUpdates(this)
                 }
             }
         }
@@ -160,7 +161,7 @@ class HomeMuridActivity : AppCompatActivity() {
                             idMurid = auth.uid.toString(),
                             lokasi = binding.tvLokasiResult.text.toString(),
                             hariTanggal = getDate(),
-                            waktuMasuk = getTime(),
+                            waktu = getTime(),
                             dataMurid = it
                         )).addOnSuccessListener {
                             binding.tvWaktuResult.text = getDate() + " " + getTime()
@@ -168,8 +169,6 @@ class HomeMuridActivity : AppCompatActivity() {
                             Log.d("LOCATION", it.toString())
                         }
                 }
-
-
             }
 
 

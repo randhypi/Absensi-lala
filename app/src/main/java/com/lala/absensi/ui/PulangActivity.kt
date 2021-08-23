@@ -22,7 +22,6 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.lala.absensi.databinding.ActivityPulangBinding
 import com.lala.absensi.model.ModelKehadiranMurid
-import com.lala.absensi.model.ModelKepulanganMurid
 import com.lala.absensi.model.ModelMurid
 import com.lala.absensi.utils.Date
 import kotlinx.coroutines.DelicateCoroutinesApi
@@ -44,9 +43,6 @@ class PulangActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         supportActionBar?.hide()
-
-
-
         if (ContextCompat.checkSelfPermission(applicationContext,
                 android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
         ) {
@@ -67,7 +63,6 @@ class PulangActivity : AppCompatActivity() {
         grantResults: IntArray,
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-
         if (requestCode == REQUET_CODE_LOCATION_PERMISSION && grantResults.size > 0) {
             if (grantResults.get(0) == PackageManager.PERMISSION_GRANTED) {
                 getCurrentLocation()
@@ -83,6 +78,14 @@ class PulangActivity : AppCompatActivity() {
 
         var address: MutableList<Address>
         var completeAddress = ""
+
+        if (ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
+        ) {
+            true
+        }
 
         val locationRequest = LocationRequest.create().apply {
             interval = 100
@@ -121,14 +124,6 @@ class PulangActivity : AppCompatActivity() {
             }
         }
 
-        if (ActivityCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
-        ) {
-            true
-        }
-
         LocationServices.getFusedLocationProviderClient(this)
             .requestLocationUpdates(locationRequest, locationCallback, Looper.getMainLooper())
 
@@ -159,7 +154,7 @@ class PulangActivity : AppCompatActivity() {
                             idMurid = auth.uid.toString(),
                             lokasi = binding.tvLokasiResult.text.toString(),
                             hariTanggal = getDate(),
-                            waktuMasuk = getTime(),
+                            waktu = getTime(),
                             dataMurid = it
                         )).addOnSuccessListener {
                             binding.tvWaktuResult.text = getDate() + " " + getTime()

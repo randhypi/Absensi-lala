@@ -79,24 +79,35 @@ class HomeGuruActivity : ComponentActivity() {
         val coroutineScope = rememberCoroutineScope()
         val scrollState = rememberScrollState()
 
+
         Column(
             modifier = modifier
                 .fillMaxSize()
                 .verticalScroll(scrollState)
+
         ) {
-            Box(modifier =
-            modifier.fillMaxWidth()
+            Card(
+                modifier =
+                modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
+                elevation = 24.dp,
+                shape = RoundedCornerShape(20.dp)
             ) {
                 Column(
                     horizontalAlignment = Alignment.End
                 ) {
-                    Text("Hi, " + viewModel.dataGuru.value.nama,
-                        modifier = modifier.padding(10.dp),
+                    Text(
+                        "Hi, " + viewModel.dataGuru.value.nama,
+                        modifier = modifier
+                            .padding(10.dp)
+                            .fillMaxWidth(),
                         fontWeight = FontWeight.Bold,
-                        fontSize = 20.sp
+                        fontSize = 15.sp,
                     )
                     Spacer(modifier = modifier.height(10.dp))
                     Button(modifier = modifier
+                        .padding(10.dp)
                         .width(100.dp)
                         .height(50.dp),
                         onClick = {
@@ -149,8 +160,6 @@ class HomeGuruActivity : ComponentActivity() {
     }
 
 
-
-
     @Composable
     fun Tampilan(modifier: Modifier = Modifier, data: List<ModelKehadiranMurid>) {
 
@@ -158,6 +167,7 @@ class HomeGuruActivity : ComponentActivity() {
             LazyColumn(modifier = Modifier.fillMaxSize()) {
                 items(items = data) { value ->
                     Card(
+                        elevation = 24.dp,
                         modifier = modifier
                             .fillMaxWidth()
                             .padding(10.dp),
@@ -168,37 +178,37 @@ class HomeGuruActivity : ComponentActivity() {
                                 .fillMaxWidth()
                                 .padding(10.dp)
                         ) {
-                            Text(value.dataMurid.nama,
-                                fontWeight = FontWeight.Bold,
-                                fontSize = 20.sp
+                            TextCard(
+                                header = "Nama",
+                                content = value.dataMurid.nama
                             )
-                            Spacer(modifier.height(4.dp))
-                            Text(value.dataMurid.nis,
-                                fontSize = 20.sp
+                            TextCard(
+                                header = "NIS",
+                                content = value.dataMurid.nis
                             )
-                            Spacer(modifier.height(4.dp))
-                            Text(value.dataMurid.email,
-                                fontSize = 20.sp
+                            TextCard(
+                                header = "Email",
+                                content = value.dataMurid.email
                             )
-
-                            Spacer(modifier.height(4.dp))
-                            Text(value.dataMurid.jurusan,
-                                fontSize = 20.sp
+                            TextCard(
+                                header = "Jurusan",
+                                content = value.dataMurid.jurusan
                             )
-                            Spacer(modifier.height(4.dp))
-                            Text(value.dataMurid.jenisKelamin,
-                                fontSize = 20.sp
+                            TextCard(
+                                header = "Jenis Kelamin",
+                                content = value.dataMurid.jenisKelamin
                             )
-
-                            Spacer(modifier.height(8.dp))
-                            Text(value.lokasi,
-                                fontSize = 20.sp
+                            TextCard(
+                                header = "Hari/tanggal",
+                                content = value.hariTanggal
                             )
-
-                            Spacer(modifier.height(4.dp))
-                            Text(value.hariTanggal +
-                                    value.waktuMasuk,
-                                fontSize = 20.sp
+                            TextCard(
+                                header = "Waktu",
+                                content = value.waktu
+                            )
+                            TextCard(
+                                header = "Lokasi",
+                                content = value.lokasi
                             )
                         }
                     }
@@ -210,7 +220,7 @@ class HomeGuruActivity : ComponentActivity() {
     @Preview
     @Composable
     fun TampilanMasukPreview() {
-        Tampilan(data = viewModel.dataKehadiranMurid.value)
+        Tampilan(data = listOf())
     }
 
     @ExperimentalPagerApi
@@ -223,25 +233,26 @@ class HomeGuruActivity : ComponentActivity() {
 
 }
 
+
 @Composable
-fun TextCard(modifier: Modifier = Modifier,header: String,content: String) {
-    Column(modifier.padding(20.dp)) {
+fun TextCard(modifier: Modifier = Modifier, header: String, content: String) {
+    Column(modifier.padding(10.dp)) {
         Text(
             header + " :",
             fontSize = 20.sp,
             fontWeight = FontWeight.Bold,
 
-        )
+            )
         Spacer(modifier = modifier.height(2.dp))
         Text(
             content,
             fontSize = 16.sp,
-            )
+        )
         Spacer(modifier = modifier.height(2.dp))
-        Canvas(modifier = modifier.fillMaxWidth()){
+        Canvas(modifier = modifier.fillMaxWidth()) {
             drawLine(
-                start = Offset(0f,0f),
-                end = Offset(size.width,0f),
+                start = Offset(0f, 0f),
+                end = Offset(size.width, 0f),
                 color = Color.LightGray,
                 strokeWidth = 3f
             )
@@ -253,39 +264,9 @@ fun TextCard(modifier: Modifier = Modifier,header: String,content: String) {
 @Preview(showBackground = true)
 @Composable
 fun TextCardPreview() {
-    TextCard(header = "Email", content = "Randhypradanairsan@gmail.com" )
+    TextCard(header = "Email", content = "Randhypradanairsan@gmail.com")
 }
 
-@Preview
-@Composable
-fun CardPreview(modifier: Modifier = Modifier) {
 
-    Card(
-        modifier = modifier
-            .fillMaxWidth(),
-        shape = RoundedCornerShape(5.dp)
-    ) {
-        Column(
-            modifier = modifier
-                .fillMaxWidth()
-                .padding(10.dp)
-        ) {
-            Text("NIS",
-                fontWeight = FontWeight.Bold,
-                fontSize = 20.sp
-            )
-            Spacer(modifier.height(4.dp))
-            Text("Nama",
-                fontSize = 20.sp
-            )
-            Spacer(modifier.height(4.dp))
-            Text("Waktu",
-                fontSize = 20.sp
-            )
-        }
-    }
-
-
-}
 
 
